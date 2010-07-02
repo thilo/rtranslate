@@ -1,19 +1,19 @@
 Gem::Specification.new do |s|
   s.name = %q{rtranslate}
-  s.version = "1.3"
+  s.version = "1.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Ye Dingding"]
-  s.date = %q{2009-07-11}
+  s.authors = ["Ye Dingding","Adam Singer"]
+  s.date = %q{2010-07-02}
   s.description = %q{rtranslate is a simple, unofficial, ruby client API for using Google Translate.}
-  s.email = %q{yedingding@gmail.com}
+  s.email = %q{adam@artforge.com}
   s.extra_rdoc_files = ["History.txt", "Manifest.txt", "README.txt"]
   s.files = ["History.txt", "MIT-LICENSE", "Manifest.txt", "README.txt", "Rakefile", "rtranslate.gemspec", "bin/rtranslate",
              "lib/rtranslate.rb", "lib/rtranslate/language.rb", "lib/rtranslate/rtranslate.rb", "tests/ts_translate.rb", 
              "bin/rtranslate", "lib/rtranslate.rb", "lib/rtranslate/language.rb",
              "lib/rtranslate/rtranslate.rb", "lib/rtranslate/detection.rb", "tests/ts_detection.rb"]
   s.has_rdoc = true
-  s.homepage = %q{http://github.com/sishen}
+  s.homepage = %q{http://github.com/Artforge/rtranslate}
   s.rdoc_options = ["--main", "README.txt"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.2.0}
@@ -27,17 +27,17 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<hoe>, [">= 1.7.0"])
       s.add_development_dependency(%q<rspec>, [">= 1.1.4"])
       s.add_development_dependency(%q<json>, [">= 1.1.3"])
-      s.add_development_dependency(%q<activesupprt>, [">= 2.2.0"])
+      # s.add_development_dependency(%q<activesupprt>, [">= 2.3.5"])
     else
       s.add_dependency(%q<hoe>, [">= 1.7.0"])
       s.add_dependency(%q<rspec>, [">= 1.1.4"])
       s.add_dependency(%q<json>, [">= 1.1.3"])
-      s.add_dependency(%q<activesupport>, [">= 2.2.0"])
+      s.add_dependency(%q<activesupport>, [">= 2.3.5"])
     end
   else
     s.add_dependency(%q<hoe>, [">= 1.7.0"])
     s.add_dependency(%q<rspec>, [">= 1.1.4"])
     s.add_dependency(%q<json>, [">= 1.1.3"])
-    s.add_dependency(%q<activesupport>, [">= 2.2.0"])
+    s.add_dependency(%q<activesupport>, [">= 2.3.5"])
   end
 end
