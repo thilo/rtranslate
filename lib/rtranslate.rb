@@ -18,8 +18,8 @@ end
 $KCODE = 'u'
 
 include Translate
-def Translate.t(text, from, to)
-  RTranslate.translate(text, from, to)
+def Translate.t(text, from, to, options ={})
+  RTranslate.translate(text, from, to, options)
 rescue
   "Error: " + $!
 end
