@@ -5,7 +5,7 @@ require 'test/unit'
 require 'rtranslate'
 
 class Translate::TranslateTest < Test::Unit::TestCase
-  include Google::Language
+  include RTranslate::Google::Language
   
   def test_english_translate
     assert_equal("مرحبا العالم", Translate.t("Hello world", "ENGLISH", "ARABIC"));
@@ -40,21 +40,21 @@ class Translate::TranslateTest < Test::Unit::TestCase
 
   def test_unsupported_translate
     assert_raise UnsupportedLanguagePair do
-      Translate::RTranslate.t("您好世界", 'zh', 'hz')
+      Translate::RTranslator.t("您好世界", 'zh', 'hz')
     end
   end
 
   def test_translate_strings
-    assert_equal(["你好", "世界"], Translate::RTranslate.translate_strings(["Hello", "World"],  "en", "zh-CN"))
+    assert_equal(["你好", "世界"], Translate::RTranslator.translate_strings(["Hello", "World"],  "en", "zh-CN"))
   end
 
   def test_translate_string_to_languages
-    assert_equal(["您好世界", "ハローワールド"], Translate::RTranslate.translate_string_to_languages("Hello World", {:from => "en", :to => ["zh-CN", "ja"]}))
+    assert_equal(["您好世界", "ハローワールド"], Translate::RTranslator.translate_string_to_languages("Hello World", {:from => "en", :to => ["zh-CN", "ja"]}))
   end
 
   def test_batch_translate
     assert_equal(["您好世界", "ハローワールド"],
-        Translate::RTranslate.batch_translate([["Hello World", {:from => "en", :to => "zh-CN"}], ["Hello World", {:from => "en", :to => "ja"}]]))
+        Translate::RTranslator.batch_translate([["Hello World", {:from => "en", :to => "zh-CN"}], ["Hello World", {:from => "en", :to => "ja"}]]))
   end
   
   def test_post_translate
@@ -65,11 +65,11 @@ class Translate::TranslateTest < Test::Unit::TestCase
     #Chinese
     assert_equal("Hello World", Translate.t("您好世界", "CHINESE", "ENGLISH", {:method => :post}))
     #Strings
-    assert_equal(["你好", "世界"], Translate::RTranslate.translate_strings(["Hello", "World"],  "en", "zh-CN", {:method => :post}))
+    assert_equal(["你好", "世界"], Translate::RTranslator.translate_strings(["Hello", "World"],  "en", "zh-CN", {:method => :post}))
     # String to Languages
-    assert_equal(["您好世界", "ハローワールド"], Translate::RTranslate.translate_string_to_languages("Hello World", {:from => "en", :to => ["zh-CN", "ja"], :method => :post}))
+    assert_equal(["您好世界", "ハローワールド"], Translate::RTranslator.translate_string_to_languages("Hello World", {:from => "en", :to => ["zh-CN", "ja"], :method => :post}))
     # Batch
     assert_equal(["您好世界", "ハローワールド"],        
-      Translate::RTranslate.batch_translate([["Hello World", {:from => "en", :to => "zh-CN"}], ["Hello World", {:from => "en", :to => "ja"}]], {:method => :post}))
+      Translate::RTranslator.batch_translate([["Hello World", {:from => "en", :to => "zh-CN"}], ["Hello World", {:from => "en", :to => "ja"}]], {:method => :post}))
   end
 end

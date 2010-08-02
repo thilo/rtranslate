@@ -9,7 +9,7 @@ module Translate
   class UnsupportedLanguagePair < StandardError
   end
 
-  class RTranslate
+  class RTranslator
     require 'net/http'
     
     # Google AJAX Language REST Service URL
@@ -24,24 +24,24 @@ module Translate
     class << self
       def translate(text, from, to, options = {})
         if options[:method] == :post
-          RTranslate.new.post_translate(text, { :from => from, :to => to })
+          RTranslator.new.post_translate(text, { :from => from, :to => to })
         else
-          RTranslate.new.translate(text, { :from => from, :to => to })
+          RTranslator.new.translate(text, { :from => from, :to => to })
         end
       end
       alias_method :t, :translate
 
       def translate_strings(text_array, from, to, options = {})
         method = options[:method] || :get
-        RTranslate.new.translate_strings(text_array, {:from => from, :to => to, :method => method})
+        RTranslator.new.translate_strings(text_array, {:from => from, :to => to, :method => method})
       end
 
       def translate_string_to_languages(text, options)
-        RTranslate.new.translate_string_to_languages(text, options)
+        RTranslator.new.translate_string_to_languages(text, options)
       end
 
       def batch_translate(translate_options, options = {})
-        RTranslate.new.batch_translate(translate_options, options)
+        RTranslator.new.batch_translate(translate_options, options)
       end
     end
 
@@ -51,11 +51,11 @@ module Translate
       @default_from = default_from
       @default_to = default_to
 
-      if @default_from && !(Google::Lanauage.supported?(@default_from))
+      if @default_from && !(RTranslate::Google::Lanauage.supported?(@default_from))
         raise StandardError, "Unsupported source language '#{@default_from}'"
       end
 
-      if @default_to && !(Google::Lanauage.supported?(@default_to))
+      if @default_to && !(RTranslate::Google::Lanauage.supported?(@default_to))
         raise StandardError, "Unsupported destination language '#{@default_to}'"
       end
     end
@@ -68,9 +68,9 @@ module Translate
     def translate(text, options = { })
       from = options[:from] || @default_from
       to = options[:to] || @default_to
-      if (from.nil? || Google::Language.supported?(from)) && Google::Language.supported?(to)
-        from = from ? Google::Language.abbrev(from) : nil
-        to = Google::Language.abbrev(to)
+      if (from.nil? || RTranslate::Google::Language.supported?(from)) && RTranslate::Google::Language.supported?(to)
+        from = from ? RTranslate::Google::Language.abbrev(from) : nil
+        to = RTranslate::Google::Language.abbrev(to)
         langpair = "#{from}|#{to}"
 
         text.mb_chars.scan(/(.{1,500})/).inject("") do |result, st|
@@ -89,9 +89,9 @@ module Translate
     def post_translate(text, options = { })
       from = options[:from] || @default_from
       to = options[:to] || @default_to
-      if (from.nil? || Google::Language.supported?(from)) && Google::Language.supported?(to)
-        from = from ? Google::Language.abbrev(from) : nil
-        to = Google::Language.abbrev(to)
+      if (from.nil? || RTranslate::Google::Language.supported?(from)) && RTranslate::Google::Language.supported?(to)
+        from = from ? RTranslate::Google::Language.abbrev(from) : nil
+        to = RTranslate::Google::Language.abbrev(to)
         post_options = {:langpair => "#{from}|#{to}", :v => @version}
         post_options[:key] = @key if @key
         

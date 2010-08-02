@@ -14,7 +14,7 @@ module Translate
 
     def initialize(json)
       @abbrev = json["language"]
-      @language = Google::Language::Languages[@abbrev]
+      @language = RTranslate::Google::Language::Languages[@abbrev]
       @reliability = json["isReliable"]
       @confidence = json["confidence"]
     end

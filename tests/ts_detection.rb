@@ -5,7 +5,7 @@ require 'test/unit'
 require 'rtranslate'
 
 class Translate::DetectionTest < Test::Unit::TestCase
-  include Google::Language
+  include RTranslate::Google::Language
   def test_detection
     d = Detection.new
     assert_equal "es", d.detect("para poner este importante proyecto en práctica")
